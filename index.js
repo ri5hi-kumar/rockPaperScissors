@@ -1,3 +1,4 @@
+// get a choice from the computer by getting a random integer value from 0 to 2
 const getComputerChoice = () => {
     let num = Math.floor(Math.random() * 3);
     let choice = '';
@@ -15,6 +16,8 @@ const getComputerChoice = () => {
     return choice;
 }
 
+
+// plays one round of the game
 const playRound = (user, comp) => {
     if (user === comp) {
         console.log('Round Tied!');
@@ -30,6 +33,8 @@ const playRound = (user, comp) => {
     }
 }
 
+
+// plays playRound() five time and keeps count of the score
 const game = () => {
     let user = 0;
     let comp = 0;
@@ -59,7 +64,9 @@ const game = () => {
     }
 }
 
-game();
+
+
+game();     // calling game()
 
 
 
