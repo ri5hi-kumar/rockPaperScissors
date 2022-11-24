@@ -33,41 +33,53 @@ const playRound = (user, comp) => {
     }
 }
 
-
 // plays playRound() five time and keeps count of the score
 const game = () => {
     let user = 0;
     let comp = 0;
 
-    for(let index = 0; index < 5; index++){
-        let userChoice = prompt('What is your choice?');
-        userChoice = userChoice.toLocaleLowerCase();
-        compChoice = getComputerChoice();
-        let result = playRound(userChoice, compChoice);
+    
+    userChoice = userChoice.toLocaleLowerCase();
+    compChoice = getComputerChoice();
+    let result = playRound(userChoice, compChoice);
 
-        if(result === 1){
-            user++;
-        }
-        else if(result === 0){
-            comp++;
-        }
+    if(result === 1){
+        user++;
+    }
+    else if(result === 0){
+        comp++;
     }
 
-    if (user === comp) {
-        console.log('GAME TIED!!');
-    }
-    else if (user > comp){
-        console.log('You WON the game!!');
-    }
-    else{
-        console.log('You LOST the game!!');
+    if(count === 5){
+        if(user === comp){
+            console.log("GAME TIDED!!");
+        }
+        else if(user > comp){
+            console.log("YOU WON THE GAME!");
+        }
+        else{
+            console.log("YOU LOST THE GAME!");
+        }
+
+        count = 0;
     }
 }
 
 
 
-game();     // calling game()
+// The following code adds events
 
+let userChoice = null;
+let count = 0;
+const buttons = document.querySelectorAll('button');
+
+for(let button of buttons){
+    button.addEventListener('click', function(e) {
+        userChoice = this.innerText;
+        count++;
+        game();
+    });
+}
 
 
 
