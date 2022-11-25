@@ -19,18 +19,29 @@ const getComputerChoice = () => {
 
 // plays one round of the game
 const playRound = (user, comp) => {
+    let roundResult = document.createElement('li');
+    let ans;
+
     if (user === comp) {
-        console.log('Round Tied!');
-        return -1;
+        roundResult.innerText = 'Round Tied!';
+        ans = -1;
     }
     else if((user === 'rock' && comp === 'scissors') || (user === 'scissors' && comp === 'paper') || (user === 'paper' && comp === 'rock')){
-        console.log(`You Won this round! ${user} beats ${comp}`);
-        return 1;
+        roundResult.innerText = `You Won this round! ${user} beats ${comp}`;
+        ans = 1;
     }
     else{
-        console.log(`You Lost this round! ${comp} beats ${user}`);
-        return 0;
+        roundResult.innerText = `You Lost this round! ${comp} beats ${user}`;
+        ans = 0;
     }
+
+    history.append(roundResult);
+    return ans;
+
+}
+
+function refresh() {    
+    
 }
 
 
@@ -41,6 +52,11 @@ let count = 0;
 let userScore = 0;
 let compScore = 0;
 const buttons = document.querySelectorAll('button');
+const history = document.querySelector('.round-history');
+const score = document.querySelector('.score');
+
+score.innerText = `${userScore} - ${compScore}`;
+
 
 for(let button of buttons){
     button.addEventListener('click', function(e) {
@@ -56,20 +72,28 @@ for(let button of buttons){
             compScore++;
         }
 
+        score.innerText = `${userScore} - ${compScore}`;
+
         if(count === 5){
-            console.log(userScore+ ' ' + compScore)
+            const result = document.createElement('div');
+        
             if(userScore === compScore){
-                console.log("GAME TIDED!!");
+                result.innerText = "GAME TIDED!!";
             }
             else if(userScore > compScore){
-                console.log("YOU WON THE GAME!");
+                result.innerText = "YOU WON THE GAME!";
             }
             else{
-                console.log("YOU LOST THE GAME!");
+                result.innerText = "YOU LOST THE GAME!";
             }
+
+            history.insertAdjacentElement('afterend', result);
             count = 0;
             userScore = 0;
             compScore = 0;
+            setTimeout(function () {
+                location.reload()
+            }, 800);
         }
     });
 }
