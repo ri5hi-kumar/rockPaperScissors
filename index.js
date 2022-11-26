@@ -19,31 +19,26 @@ const getComputerChoice = () => {
 
 // plays one round of the game
 const playRound = (user, comp) => {
-    let roundResult = document.createElement('li');
+    let roundResult;
     let ans;
 
     if (user === comp) {
-        roundResult.innerText = 'Round Tied!';
+        roundResult = 'Round Tied!';
         ans = -1;
     }
     else if((user === 'rock' && comp === 'scissors') || (user === 'scissors' && comp === 'paper') || (user === 'paper' && comp === 'rock')){
-        roundResult.innerText = `You Won this round! ${user} beats ${comp}`;
+        roundResult = `You Won this round! ${user} beats ${comp}`;
         ans = 1;
     }
     else{
-        roundResult.innerText = `You Lost this round! ${comp} beats ${user}`;
+        roundResult = `You Lost this round! ${comp} beats ${user}`;
         ans = 0;
     }
 
-    history.append(roundResult);
+    history.innerText = roundResult;
     return ans;
 
 }
-
-function refresh() {    
-    
-}
-
 
 
 // The following code adds events
@@ -55,27 +50,35 @@ const buttons = document.querySelectorAll('button');
 const history = document.querySelector('.round-history');
 const score = document.querySelector('.score');
 
+const result = document.createElement('div');
+result.classList.add('final-result');
+
+history.innerText = "";
+result.innerText = "";
+
 score.innerText = `${userScore} - ${compScore}`;
 
 
 for(let button of buttons){
     button.addEventListener('click', function(e) {
+
+        result.innerText = "";
+        
         let userChoice = this.innerText.toLowerCase();
         let compChoice = getComputerChoice();
         count++;
-        let result = playRound(userChoice, compChoice);
+        let roundResult = playRound(userChoice, compChoice);
 
-        if(result === 1){
+        if(roundResult === 1){
             userScore++;
         }
-        else if(result === 0){
+        else if(roundResult === 0){
             compScore++;
         }
 
         score.innerText = `${userScore} - ${compScore}`;
 
         if(count === 5){
-            const result = document.createElement('div');
         
             if(userScore === compScore){
                 result.innerText = "GAME TIDED!!";
@@ -91,9 +94,6 @@ for(let button of buttons){
             count = 0;
             userScore = 0;
             compScore = 0;
-            setTimeout(function () {
-                location.reload()
-            }, 800);
         }
     });
 }
