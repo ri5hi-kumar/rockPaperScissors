@@ -27,7 +27,8 @@ h1{
 
 .container{
     display: flex;
-    justify-content:center;;
+    justify-content:center;
+    flex: 1;
     gap: 10%;
 }
 
@@ -35,10 +36,9 @@ button{
     background-color:white;
     color: black;
     font-size: medium;
-    box-shadow: inset;
-    width: 15%;
+    min-width: 15%;
     padding: 4% 2%;
-    margin: 8% 0;
+    margin: 5% 0;
 }
 
 .choose-container{
@@ -47,7 +47,6 @@ button{
     display: flex;
     font-size:x-large;
     flex-direction: column;
-    gap: 15px;
 }
 
 .round-history{
